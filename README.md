@@ -18,6 +18,13 @@ export const API_KEY = '{API KEY}';
 
 Save the project, and launch the development environment in the same way you launched the template app earlier.
 
+## Upcoming Features
+
+- Hourly forecast over the next day
+- search by locale name
+- auto fetch based on current location
+- air quality index measurements
+
 ## Contributing
 
 This is a small project for the purpose of practicing the use of React Native and TS. Raising issues is encouraged as needed, but no public contributions will be merged.
