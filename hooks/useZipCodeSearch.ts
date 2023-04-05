@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-
-const ZIPCODE_REGEX = /^\d{5}$/;
+import { isValidZipcode } from '../utils/isValidZipcode';
 
 // Zip code state returns the zipcode itself, a function to change the zipcode, and a boolean stating if the zipcode is valid or not
 interface ZipCodeState {
@@ -9,12 +8,8 @@ interface ZipCodeState {
   valid: boolean;
 }
 
-const isValidZipcode = (zipcode: string): boolean => {
-  return ZIPCODE_REGEX.test(zipcode);
-}
-
-export const useZipCodeSearch = (searchInput: string): ZipCodeState => {
-  const [zipcode, setZipcode] = useState("");
+export const useZipCodeSearch = (initialValue: string): ZipCodeState => {
+  const [zipcode, setZipcode] = useState(initialValue);
   const [valid, setValid] = useState(false);
 
   useEffect(() => {

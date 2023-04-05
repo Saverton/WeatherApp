@@ -4,7 +4,7 @@ import ForecastListItem from "./ForecastListItem";
 import { useForecast } from "../hooks/useForecast";
 
 const ForecastList: FC = () => {
-  const data = useForecast("19382");
+  const data = useForecast("");
 
   return (
     <View style={styles.container}>
