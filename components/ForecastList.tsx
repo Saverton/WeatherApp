@@ -1,10 +1,12 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import ForecastListItem from "./ForecastListItem";
 import { useForecast } from "../hooks/useForecast";
+import { ZipCodeSearchContext } from "../context/ZipCodeSearchContext";
 
 const ForecastList: FC = () => {
-  const data = useForecast("");
+  const { zipcode } = useContext(ZipCodeSearchContext);
+  const data = useForecast(zipcode);
 
   return (
     <View style={styles.container}>
