@@ -1,17 +1,17 @@
 import React, { FC, useContext } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import ForecastListItem from "./ForecastListItem";
-import { useForecast } from "../hooks/useForecast";
 import { ZipCodeSearchContext } from "../context/ZipCodeSearchContext";
+import { useHourlyForecast } from "../hooks/useHourlyForecast";
 
 const ForecastList: FC = () => {
   const { zipcode } = useContext(ZipCodeSearchContext);
-  const data = useForecast(zipcode);
+  const { list, location } = useHourlyForecast(zipcode);
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={data}
+        data={list}
         renderItem={ForecastListItem} />
     </View>
   );

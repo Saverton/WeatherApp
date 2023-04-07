@@ -1,24 +1,20 @@
 import { useState, useEffect } from 'react';
-import { WeatherForecast } from '../types';
+import { CurrentWeatherForecast, HourlyWeatherForecast, WeatherForecast } from '../types';
 import { API_KEY } from '../assets/secret/apiKey';
 import { isValidZipcode } from '../utils/isValidZipcode';
-import testForecast from '../testForecast.json';
+import { fetchWeatherData } from '../utils/fetchWeatherData';
 
 
-export const useForecast = (zipcode: string): WeatherForecast[] => {
-  const [forecast, setForecast] = useState<WeatherForecast[]>([]);
+export const useCurrentWeather = (zipcode: string): (CurrentWeatherForecast | null) => {
+  const [forecast, setForecast] = useState<CurrentWeatherForecast | null>(null);
 
   useEffect(() => {
     // only fetch if the zipcode is formatted correctly, will cut down on excess fetches
     if (isValidZipcode(zipcode)) {
-      fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zipcode},us&units=imperial&appid=${API_KEY}`)
-        .then(r => {
-          if (r.ok) {
-            r.json().then((data: WeatherForecast): void => { setForecast([data]) });
-          } else {
-            console.warn('something went wrong while fetching.');
-          }
-        });
+      fetchWeatherData(
+        `https://api.openweathermap.org/data/2.5/weather?zip=${zipcode},us&units=imperial&appid=${API_KEY}`,
+        setForecast
+      );
     }
   }, [zipcode]);
 

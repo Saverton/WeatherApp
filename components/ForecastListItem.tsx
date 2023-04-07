@@ -1,27 +1,28 @@
 import React, { FC } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { WeatherForecast } from "../types";
-import ForecastLabel from "./ForecastLabel";
 import ForecastTemp from "./ForecastTemp";
 import ForecastMetric from "./ForecastMetric";
 import BoldLabel from "./BoldLabel";
+import { formatTimestamp } from "../utils/formatTimestamp";
 
 interface ForecastListItemProps {
   item: WeatherForecast;
-  time: string;
 }
 
-const ForecastListItem: FC<ForecastListItemProps> = ({ item, time = "Now" }) => {
+const ForecastListItem: FC<ForecastListItemProps> = ({ item }) => {
   // destructure all necessary weather data
-  const { name: location, weather, main , wind } = item;
+  const { weather, main, wind, dt_txt: time } = item;
   const [{ main: weatherType, description, icon }] = weather;
   const { speed: windSpeed } = wind;
   const { temp, feels_like: feelTemp, temp_min: loTemp, temp_max: hiTemp, humidity } = main;
 
+  const formattedTime = time ? formatTimestamp(time) : "Now";
+
   return (
     <View style={styles.container}>
       <View style={styles.timeView}>
-        <BoldLabel text={time} />
+        <BoldLabel text={formattedTime} />
       </View>
       <View style={styles.weatherView}>
         {/* weather Icon */}
