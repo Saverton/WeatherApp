@@ -3,21 +3,12 @@ import { CurrentWeatherForecast, HourlyWeatherForecast, WeatherForecast } from '
 import { API_KEY } from '../assets/secret/apiKey';
 import { isValidZipcode } from '../utils/isValidZipcode';
 import { fetchWeatherData } from '../utils/fetchWeatherData';
+import { useWeatherData } from './useWeatherData';
 
 
 export const useCurrentWeather = (zipcode: string): (CurrentWeatherForecast | null) => {
-  const [forecast, setForecast] = useState<CurrentWeatherForecast | null>(null);
+  const currentWeather = useWeatherData('https://api.openweathermap.org/data/2.5/weather', zipcode);
 
-  useEffect(() => {
-    // only fetch if the zipcode is formatted correctly, will cut down on excess fetches
-    if (isValidZipcode(zipcode)) {
-      fetchWeatherData(
-        `https://api.openweathermap.org/data/2.5/weather?zip=${zipcode},us&units=imperial&appid=${API_KEY}`,
-        setForecast
-      );
-    }
-  }, [zipcode]);
-
-  // return forecast;
-  return forecast;
+  // return current Weather
+  return <CurrentWeatherForecast | null> currentWeather;
 }

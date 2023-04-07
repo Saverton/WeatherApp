@@ -8,6 +8,7 @@ import { fetchWeatherData } from "../utils/fetchWeatherData";
 
 export const useWeatherData = (endpoint: string, zipcode: string): (HourlyWeatherForecast | CurrentWeatherForecast | null) => {
   const [data, setData] = useState<CurrentWeatherForecast | HourlyWeatherForecast | null>(null);
+  const [lastFetch, setLastFetch] = useState('');
   const locationData = useCurrentLocation();
 
   useEffect(() => {
@@ -17,13 +18,15 @@ export const useWeatherData = (endpoint: string, zipcode: string): (HourlyWeathe
     };
 
     // only fetch if the zipcode is formatted correctly, will cut down on excess fetches
-    if (isValidZipcode(zipcode)) {
+    if (lastFetch !== zipcode && isValidZipcode(zipcode)) {
       // fetch with zip
       fetchOptions.zip = `${zipcode},us`;
-    } else if (!data && locationData.allowed) {
+      setLastFetch(zipcode);
+    } else if (lastFetch !== 'location' && !data && locationData.allowed) {
       // fetch with lat/lon
       fetchOptions.lat = locationData.lat;
       fetchOptions.lon = locationData.lon;
+      setLastFetch('location');
     } else {
       return;
     }

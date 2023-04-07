@@ -18,10 +18,10 @@ export const useCurrentLocation = (): LocationData => {
         return;
       } else {
         setLocationPermission(true);
-      }
 
-      let location = await Location.getLastKnownPositionAsync({});
-      setLocation(location);
+        let location = await Location.getLastKnownPositionAsync({});
+        setLocation(location);
+      }
     })();
   }, []);
 
