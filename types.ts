@@ -1,4 +1,4 @@
-interface Coordinates {
+export interface Coordinates {
   lon: number,
   lat: number,
 }
@@ -87,4 +87,12 @@ export interface ZipCodeState {
   zipcode: string;
   setZipcode: Function;
   valid: boolean;
+}
+
+export interface FetchOptions {
+  appid: string,
+  units: string,
+  zip?: string,
+  lat?: number,
+  lon?: number,
 }
