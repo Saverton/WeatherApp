@@ -12,7 +12,8 @@ const ForecastList: FC = () => {
     <View style={styles.container}>
       <FlatList
         data={list}
-        renderItem={ForecastListItem} />
+        renderItem={ForecastListItem}
+        style={styles.list} />
     </View>
   );
 }
@@ -23,4 +24,7 @@ const styles = StyleSheet.create({
   container: {
 
   },
+  list: {
+    marginBottom: 200,
+  }
 })

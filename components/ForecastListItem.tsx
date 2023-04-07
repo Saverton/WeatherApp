@@ -4,22 +4,29 @@ import { WeatherForecast } from "../types";
 import ForecastTemp from "./ForecastTemp";
 import ForecastMetric from "./ForecastMetric";
 import BoldLabel from "./BoldLabel";
-import { formatTimestamp } from "../utils/formatTimestamp";
+import { formatTime } from "../utils/formatTime";
+import ForecastDateLabel from "./ForecastDateLabel";
 
 interface ForecastListItemProps {
   item: WeatherForecast;
+  index?: number;
 }
 
-const ForecastListItem: FC<ForecastListItemProps> = ({ item }) => {
+const ForecastListItem: FC<ForecastListItemProps> = ({ item, index }) => {
   // destructure all necessary weather data
   const { weather, main, wind, dt_txt: time } = item;
   const [{ main: weatherType, description, icon }] = weather;
   const { speed: windSpeed } = wind;
   const { temp, feels_like: feelTemp, temp_min: loTemp, temp_max: hiTemp, humidity } = main;
 
-  const formattedTime = time ? formatTimestamp(time) : "Now";
+  const formattedTime = time ? formatTime(time) : "Now";
 
   return (
+    <>
+    {
+      (time && (formattedTime === '12 AM' || index === 0)) &&
+      <ForecastDateLabel date={time} />
+    }
     <View style={styles.container}>
       <View style={styles.timeView}>
         <BoldLabel text={formattedTime} />
@@ -46,6 +53,7 @@ const ForecastListItem: FC<ForecastListItemProps> = ({ item }) => {
         <ForecastMetric labelText="wind speed" metricText={`${windSpeed} mph`} />
       </View>
     </View>
+    </>
   );
 }
 

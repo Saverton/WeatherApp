@@ -1,7 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { TextInput, Text, View, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import { useZipCodeSearch } from '../hooks/useZipCodeSearch';
 import { ZipCodeSearchContext } from '../context/ZipCodeSearchContext';
 
 const ZipCodeSearch: FC = () => {
