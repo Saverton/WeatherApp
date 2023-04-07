@@ -32,7 +32,6 @@ const ForecastListItem: FC<ForecastListItemProps> = ({ item, index }) => {
         <BoldLabel text={formattedTime} />
       </View>
       <View style={styles.weatherView}>
-        {/* weather Icon */}
         <Image source={{ uri: `https://openweathermap.org/img/wn/${icon}@2x.png` }} style={styles.weatherIcon} />
         <Text>{weatherType}</Text>
       </View>

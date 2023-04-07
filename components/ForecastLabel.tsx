@@ -2,12 +2,13 @@ import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 
 type ForecastLabelProps = {
-  text: string
+  text: string,
+  size?: number,
 }
 
-const ForecastLabel: React.FC<ForecastLabelProps> = ({ text }) => {
+const ForecastLabel: React.FC<ForecastLabelProps> = ({ text, size = 1 }) => {
   return (
-    <Text style={styles.label}>
+    <Text style={[styles.label,{ fontSize: (size * 8) }]}>
       {text}
     </Text>
   )
@@ -17,7 +18,6 @@ export default ForecastLabel;
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: 8,
     textTransform: 'uppercase',
     color: '#777',
   }
