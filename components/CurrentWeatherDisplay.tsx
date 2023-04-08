@@ -5,6 +5,7 @@ import { useCurrentWeather } from '../hooks/useCurrentWeather';
 import ForecastTemp from './ForecastTemp';
 import ForecastWeatherTypeDisplay from './ForecastWeatherTypeDisplay';
 import ForecastMetric from './ForecastMetric';
+import Heading from './Heading';
 
 const CurrentWeatherDisplay: React.FC = () => {
   const { zipcode } = useContext(ZipCodeSearchContext);
@@ -14,12 +15,14 @@ const CurrentWeatherDisplay: React.FC = () => {
     return <Text>Empty</Text>
   }
 
-  const { weather, main, wind, } = currentWeather;
+  const { weather, main, wind, name: location } = currentWeather;
   const [{ main: weatherType, description, icon }] = weather;
   const { speed: windSpeed } = wind;
   const { temp, feels_like: feelTemp, temp_min: loTemp, temp_max: hiTemp, humidity } = main;
 
   return (
+    <>
+    <Heading text={location} />
     <View style={styles.container}>
       <View style={styles.mainContentView}>
         <View>
@@ -46,6 +49,7 @@ const CurrentWeatherDisplay: React.FC = () => {
         <ForecastMetric labelText='wind speed' metricText={`${windSpeed} mph`} size={2} />
       </View>
     </View>
+    </>
   );
 }
 

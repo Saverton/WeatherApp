@@ -1,20 +1,12 @@
-import { StyleSheet } from 'react-native';
-
 import { View } from '../../components/Themed';
 import ZipCodeSearch from '../../components/ZipCodeSearch';
-import ForecastList from '../../components/ForecastList';
+import HourlyForecastDisplay from '../../components/HourlyForecastDisplay';
 
-export default function TabTwoScreen() {
+export default function HourlyForecastTab() {
   return (
-    <View style={styles.container}>
+    <View>
       <ZipCodeSearch />
-      <ForecastList />
+      <HourlyForecastDisplay />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-
-  },
-});

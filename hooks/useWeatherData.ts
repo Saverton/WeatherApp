@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { CurrentWeatherForecast, FetchOptions, HourlyWeatherForecast } from "../types";
+import { FetchOptions } from "../types";
 import { API_KEY } from "../assets/secret/apiKey";
 import { useCurrentLocation } from "./useCurrentLocation";
 import { isValidZipcode } from "../utils/isValidZipcode";
 import { buildUri } from "../utils/buildUri";
 import { fetchWeatherData } from "../utils/fetchWeatherData";
 
-export const useWeatherData = (endpoint: string, zipcode: string): (HourlyWeatherForecast | CurrentWeatherForecast | null) => {
-  const [data, setData] = useState<CurrentWeatherForecast | HourlyWeatherForecast | null>(null);
+export const useWeatherData = <Type>(endpoint: string, zipcode: string): (Type | null) => {
+  const [data, setData] = useState<Type | null>(null);
   const [lastFetch, setLastFetch] = useState('');
   const locationData = useCurrentLocation();
 
@@ -17,12 +17,14 @@ export const useWeatherData = (endpoint: string, zipcode: string): (HourlyWeathe
       units: 'imperial',
     };
 
+    console.log('in useEffect');
+
     // only fetch if the zipcode is formatted correctly, will cut down on excess fetches
     if (lastFetch !== zipcode && isValidZipcode(zipcode)) {
       // fetch with zip
       fetchOptions.zip = `${zipcode},us`;
       setLastFetch(zipcode);
-    } else if (lastFetch !== 'location' && !data && locationData.allowed) {
+    } else if (lastFetch === '' && !data && locationData.allowed) {
       // fetch with lat/lon
       fetchOptions.lat = locationData.lat;
       fetchOptions.lon = locationData.lon;
@@ -36,6 +38,7 @@ export const useWeatherData = (endpoint: string, zipcode: string): (HourlyWeathe
     fetchWeatherData(uri, setData);
   }, [zipcode, locationData]);
 
-  // return forecast;
+  console.log('zipcode:', zipcode);
+
   return data;
 }

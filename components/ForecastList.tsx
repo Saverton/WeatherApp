@@ -1,29 +1,24 @@
-import React, { FC, useContext } from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import React from "react";
+import { FlatList, StyleSheet } from "react-native";
 import ForecastListItem from "./ForecastListItem";
-import { ZipCodeSearchContext } from "../context/ZipCodeSearchContext";
-import { useHourlyForecast } from "../hooks/useHourlyForecast";
+import { WeatherForecast } from "../types";
 
-const ForecastList: FC = () => {
-  const { zipcode } = useContext(ZipCodeSearchContext);
-  const { list, location } = useHourlyForecast(zipcode);
+type ForecastListProps = {
+  list: WeatherForecast[];
+}
 
+const ForecastList: React.FC<ForecastListProps> = ({ list }) => {
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={list}
-        renderItem={ForecastListItem}
-        style={styles.list} />
-    </View>
+    <FlatList
+      data={list}
+      renderItem={ForecastListItem}
+      style={styles.list} />
   );
 }
 
 export default ForecastList;
 
 const styles = StyleSheet.create({
-  container: {
-
-  },
   list: {
     marginBottom: 200,
   }
