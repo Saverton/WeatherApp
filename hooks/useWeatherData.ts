@@ -6,8 +6,14 @@ import { isValidZipcode } from "../utils/isValidZipcode";
 import { buildUri } from "../utils/buildUri";
 import { fetchWeatherData } from "../utils/fetchWeatherData";
 
-export const useWeatherData = <Type>(endpoint: string, zipcode: string): (Type | null) => {
+type weatherDataReturn<Type> = {
+  data: (Type | null),
+  loading: boolean
+}
+
+export const useWeatherData = <Type>(endpoint: string, zipcode: string): weatherDataReturn<Type> => {
   const [data, setData] = useState<Type | null>(null);
+  const [loading, setLoading] = useState(false);
   const [lastFetch, setLastFetch] = useState('');
   const locationData = useCurrentLocation();
 
@@ -32,11 +38,18 @@ export const useWeatherData = <Type>(endpoint: string, zipcode: string): (Type |
     }
 
     console.log('fetching...');
+    setLoading(true);
 
     const uri = buildUri(endpoint, fetchOptions);
 
-    fetchWeatherData(uri, setData);
+    fetchWeatherData(uri, (data: Type) => {
+      setData(data);
+      setLoading(false);
+    });
   }, [zipcode, locationData]);
 
-  return data;
+  return {
+    data,
+    loading
+  };
 }

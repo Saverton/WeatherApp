@@ -3,16 +3,18 @@ import { useWeatherData } from './useWeatherData';
 
 interface UseHourlyForecastReturns {
   list: WeatherForecast[],
-  location: string
+  location: string,
+  loading: boolean,
 }
 
 export const useHourlyForecast = (zipcode: string): UseHourlyForecastReturns => {
-  const forecast = useWeatherData<HourlyWeatherForecast>('https://api.openweathermap.org/data/2.5/forecast', zipcode);
+  const { data, loading } = useWeatherData<HourlyWeatherForecast>('https://api.openweathermap.org/data/2.5/forecast', zipcode);
 
-  const { city, list } = <HourlyWeatherForecast>forecast || {};
+  const { city, list } = <HourlyWeatherForecast>data || {};
   return {
     list: list || [],
     location: city?.name || '',
+    loading
   };
 }
 

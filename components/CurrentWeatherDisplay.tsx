@@ -10,11 +10,13 @@ import NoData from './NoData';
 
 const CurrentWeatherDisplay: React.FC = () => {
   const { zipcode } = useContext(ZipCodeSearchContext);
-  const currentWeather = useCurrentWeather(zipcode);
+  const { data: currentWeather, loading } = useCurrentWeather(zipcode);
 
-  if (!currentWeather) {
+  if (loading) {
+    return <Text>Loading...</Text>
+  } else if (!currentWeather) {
     return <NoData />
-  }
+  } 
 
   const { weather, main, wind, name: location } = currentWeather;
   const [{ main: weatherType, description, icon }] = weather;
