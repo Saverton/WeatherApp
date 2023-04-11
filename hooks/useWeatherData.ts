@@ -17,8 +17,6 @@ export const useWeatherData = <Type>(endpoint: string, zipcode: string): (Type |
       units: 'imperial',
     };
 
-    console.log('in useEffect');
-
     // only fetch if the zipcode is formatted correctly, will cut down on excess fetches
     if (lastFetch !== zipcode && isValidZipcode(zipcode)) {
       // fetch with zip
@@ -33,12 +31,12 @@ export const useWeatherData = <Type>(endpoint: string, zipcode: string): (Type |
       return;
     }
 
+    console.log('fetching...');
+
     const uri = buildUri(endpoint, fetchOptions);
 
     fetchWeatherData(uri, setData);
   }, [zipcode, locationData]);
-
-  console.log('zipcode:', zipcode);
 
   return data;
 }

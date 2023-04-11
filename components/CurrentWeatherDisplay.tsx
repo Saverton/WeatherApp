@@ -6,13 +6,14 @@ import ForecastTemp from './ForecastTemp';
 import ForecastWeatherTypeDisplay from './ForecastWeatherTypeDisplay';
 import ForecastMetric from './ForecastMetric';
 import Heading from './Heading';
+import NoData from './NoData';
 
 const CurrentWeatherDisplay: React.FC = () => {
   const { zipcode } = useContext(ZipCodeSearchContext);
   const currentWeather = useCurrentWeather(zipcode);
 
   if (!currentWeather) {
-    return <Text>Empty</Text>
+    return <NoData />
   }
 
   const { weather, main, wind, name: location } = currentWeather;
