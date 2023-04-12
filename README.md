@@ -20,9 +20,9 @@ Save the project, and launch the development environment in the same way you lau
 
 ## Upcoming Features
 
-- Hourly forecast over the next day
+- Hourly forecast over the multiple days &#x2611; 
 - search by locale name
-- auto fetch based on current location
+- auto fetch based on current location  &#x2611;
 - air quality index measurements
 
 ## Contributing
