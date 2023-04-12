@@ -1,21 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export const Loader = () => {
   return (
-    <View style={styles.container}>
-      <ActivityIndicator size="large" />
-      <Text style={styles.loadingText}>Loading...</Text>
-    </View>
+    <Spinner
+      visible
+      textContent='Loading...'
+      textStyle={styles.loadingText}
+    />
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 50,
-    marginBottom: 50,
-  },
   loadingText: {
     textAlign: 'center',
+    color: '#fff',
   }
 })
