@@ -5,16 +5,17 @@ import { ZipCodeSearchContext } from '../context/ZipCodeSearchContext';
 import { useHourlyForecast } from '../hooks/useHourlyForecast';
 import Heading from './Heading';
 import NoData from './NoData';
+import { Loader } from './Loader';
 
 const HourlyForecastDisplay: React.FC = () => {
   const { zipcode } = useContext(ZipCodeSearchContext);
   const { list, location, loading } = useHourlyForecast(zipcode);
 
   if (loading) {
-    return <Text>Loading...</Text>
+    return <Loader />
   } else if (list.length < 1) {
     return <NoData />
-  } 
+  }
 
   return (
     <View>

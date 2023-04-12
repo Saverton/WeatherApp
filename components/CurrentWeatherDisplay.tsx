@@ -7,13 +7,14 @@ import ForecastWeatherTypeDisplay from './ForecastWeatherTypeDisplay';
 import ForecastMetric from './ForecastMetric';
 import Heading from './Heading';
 import NoData from './NoData';
+import { Loader } from './Loader';
 
 const CurrentWeatherDisplay: React.FC = () => {
   const { zipcode } = useContext(ZipCodeSearchContext);
   const { data: currentWeather, loading } = useCurrentWeather(zipcode);
 
   if (loading) {
-    return <Text>Loading...</Text>
+    return <Loader />
   } else if (!currentWeather) {
     return <NoData />
   } 
